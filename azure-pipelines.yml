@@ -20,7 +20,13 @@ steps:
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
-    sonarQubeRunAnalysis: false 
+    sonarQubeRunAnalysis: false  
+
+- task: dependency-check-build-task@6
+  inputs:
+    projectName: 'public-api-java'
+    scanPath: '/home/vsts/work/1/s/target'
+    format: 'HTML'
 
 - task: SnykSecurityScan@1
   inputs:

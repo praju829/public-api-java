@@ -27,4 +27,23 @@ steps:
     serviceConnectionEndpoint: 'snyk'
     testType: 'app'
     monitorWhen: 'always'
-    failOnIssues: false
+    failOnIssues: false 
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'azuredevops-sonarcloud-conn'
+    organization: 'prajktamhapsekar829'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'prajktamhapsekar829'
+    cliProjectName: 'public-api-java'
+    cliSources: '.'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin 
+      sonar.java.binaries=. 
+- task: SonarCloudAnalyze@1 
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
